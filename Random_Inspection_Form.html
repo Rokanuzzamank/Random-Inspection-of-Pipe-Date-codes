@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pipe Date Code Inspection</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .entry { margin-bottom: 10px; }
+    .entry input { margin-right: 10px; }
+    .entry label { font-weight: bold; display: inline-block; width: 140px; }
+  </style>
+</head>
+<body>
+  <h2>Random Inspection of Pipe Date Codes</h2>
+
+  <form id="inspectionForm">
+    <div id="entries">
+      <div class="entry">
+        <label>Date Code:</label>
+        <input type="text" name="dateCode[]" required>
+        <label>Item Number (CC#):</label>
+        <input type="text" name="itemNumber[]" required>
+      </div>
+    </div>
+
+    <button type="button" onclick="addEntry()">+ Add Another</button>
+    <br><br>
+
+    <label>Cell:</label><br>
+    <input type="radio" name="cell" value="Bay A" required> Bay A<br>
+    <input type="radio" name="cell" value="Bay B"> Bay B<br>
+    <input type="radio" name="cell" value="Bay C"> Bay C<br>
+    <input type="radio" name="cell" value="Bay D"> Bay D<br>
+    <input type="radio" name="cell" value="Other"> Other<br><br>
+
+    <label>Foreman (checked by):</label>
+    <input type="text" name="foreman" required><br><br>
+
+    <label>Remark:</label><br>
+    <textarea name="remark" rows="4" cols="50" placeholder="Enter your answer"></textarea><br><br>
+
+    <label>Finding (if any):</label><br>
+    <input type="file" name="finding" accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,image/*,audio/*,video/*"><br>
+    <small>File number limit: 1 | Single file size limit: 10MB | Allowed file types: Word, Excel, PPT, PDF, Image, Video, Audio</small><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function addEntry() {
+      const container = document.getElementById('entries');
+      const newEntry = document.createElement('div');
+      newEntry.classList.add('entry');
+      newEntry.innerHTML = `
+        <label>Date Code:</label>
+        <input type="text" name="dateCode[]" required>
+        <label>Item Number (CC#):</label>
+        <input type="text" name="itemNumber[]" required>
+      `;
+      container.appendChild(newEntry);
+    }
+
+    document.getElementById('inspectionForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
+      alert("Form submitted! (Data logged to console)");
+    });
+  </script>
+</body>
+</html>
